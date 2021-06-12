@@ -1,4 +1,7 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -10,17 +13,8 @@ import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
-
 const client = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache(),
+  uri: '/graphql'
 });
 
 function App() {
@@ -34,8 +28,8 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/thought" component={SingleThought} />
+              <Route exact path="/profile/:username?" component={Profile} />
+              <Route exact path="/thought/:id" component={SingleThought} />
 
               <Route component={NoMatch} />
             </Switch>
